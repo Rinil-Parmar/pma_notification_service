@@ -8,6 +8,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 @Service
 public class EmailService {
 
@@ -25,6 +28,9 @@ public class EmailService {
     }
 
     private String buildEmailBody(NotificationRequest request) {
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
         return "<!DOCTYPE html>" +
                 "<html>" +
                 "<head>" +
@@ -48,11 +54,11 @@ public class EmailService {
                 "<ul>" +
                 "<li><strong>Recipient:</strong> " + request.getUsername() + "</li>" +
                 "<li><strong>Email:</strong> " + request.getUserEmail() + "</li>" +
-                "<li><strong>Updated On:</strong> " + java.time.LocalDateTime.now().toString() + "</li>" +
+                "<li><strong>Updated On:</strong> " + formattedDateTime + "</li>" +
                 "</ul>" +
                 "<p>Thank you for choosing our service. If you have any questions, feel free to contact our support team at <a href='mailto:support@parcelmanagement.com'>support@parcelmanagement.com</a>.</p>" +
                 "<div class='footer'>" +
-                "Parcel Flow | 123 Delivery Lane, Shipping City | <a href='http://www.parcelmanagement.com'>www.parcelmanagement.com</a><br>" +
+                "Parcel Flow | Peepul Park | Trivandrum.<br>" +
                 "This is an automated message, please do not reply directly to this email." +
                 "</div>" +
                 "</div>" +
